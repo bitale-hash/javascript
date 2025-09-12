@@ -1,14 +1,14 @@
 const employees = [
-      { id: 1, name: 'John Doe', age: 30, department: 'IT', salary: 50000 },
-      { id: 2, name: 'Alice Smith', age: 28, department: 'HR', salary: 45000 },
-      { id: 3, name: 'Bob Johnson', age: 35, department: 'Finance', salary: 60000 },
+      { id: 1, name: 'John Doe', age: 30, department: 'IT', salary: 50000 ,specialization:'web developer' },
+      { id: 2, name: 'Alice Smith', age: 28, department: 'HR', salary: 45000, specialization: 'bitch' },
+      { id: 3, name: 'Bob Johnson', age: 35, department: 'Finance', salary: 60000 , specialization: 'management'},
       //... More employee records can be added here
     ];
 
 // Function to display all employees
 function displayEmployees() {
     const totalEmployees = employees
-        .map(employee => `<p>${employee.id}: ${employee.name} - ${employee.department} - $${employee.salary}</p>`)
+        .map(employee => `<p>${employee.id}: ${employee.name} - ${employee.department} - $${employee.salary} - ${employee.specialization}</p>`)
         .join('');
     document.getElementById('employeesDetails').innerHTML = totalEmployees;
 }
@@ -20,16 +20,22 @@ function calculateTotalSalaries() {
 
 function displayHREmployees() {
      const hrEmployees = employees.filter(employee => employee.department === 'HR');
-      const hrEmployeesDisplay = hrEmployees.map((employee, index) => `<p>${employee.id}: ${employee.name}: ${employee.name} - ${employee.department} - $${employee.salary}</p>`).join('');
+      const hrEmployeesDisplay = hrEmployees.map((employee, index) => `<p>${employee.id}: ${employee.name}: ${employee.name} - ${employee.department} - $${employee.salary} - ${employee.specialization}</p>`).join('');
       document.getElementById('employeesDetails').innerHTML = hrEmployeesDisplay;
 }
 
 function findEmployeeById(employeeId) {
-      const foundEmployee = employees.find(employee => employee.id === employeeId);
+      const foundEmployee = employees.find(employee => employee.id == employeeId);
       if (foundEmployee) {
-      document.getElementById('employeesDetails').innerHTML =`<p>${foundEmployee.id}: ${foundEmployee.name}: ${foundEmployee.name} - ${foundEmployee.department} - $${foundEmployee.salary}</p>`;
+      document.getElementById('employeesDetails').innerHTML =`<p>${foundEmployee.id}: ${foundEmployee.name}: ${foundEmployee.name} - ${foundEmployee.department} - $${foundEmployee.salary} - ${foundEmployee.specialization}</p>`;
       }
       else{
         document.getElementById('employeesDetails').innerHTML = 'no employee has been found with this ID';
        }
+   }
+function findEmployeeBySpeciaization(specialization) {
+    const specializationEmployees = employees.filter(employee => employee.specialization == 'bitch');
+    const EmployeesDisplay = specializationEmployees.map((employee, index) => `<p>${employee.id}: ${employee.name}: ${employee.name} - ${employee.department} - $${employee.salary} - ${employee.speciaization}</p>`).join('');
+    
+    document.getElementById('employeesDetails').innerHTML = EmployeesDisplay;
    }
