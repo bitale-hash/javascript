@@ -1,11 +1,21 @@
 function showweatherDetails(event) {
       event.preventDefault();
        const city = document.getElementById('city').value;
-      const apiKey = 'http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={API key}'; // Replace 'YOUR_API_KEY' with your actual API key
+      const apiKey = '96c439a06151f81ce7e2e95682587870'; // Replace 'YOUR_API_KEY' with your actual API key
       const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-         fetch(apiUrl)
-        .then(response => response.json())
+        fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+              if (response.status === 401) {
+                throw new Error('Unauthorized: Invalid API key');
+              } else if (response.status === 404) {
+                throw new Error('City not found');
+              } else {
+                throw new Error('Error fetching weather data');
+              }
+            }
+            return response.json();
+          })   
         .then(data => {
           const weatherInfo = document.getElementById('weatherInfo');
           weatherInfo.innerHTML = `<h2>Weather in ${data.name}</h2>
